@@ -7,7 +7,7 @@ export default function Home() {
         <title>Home | Ig.news</title>
       </Head>
       <main>
-        <h1>Testando</h1>
+        <h1>index</h1>
       </main>
     </>
   );
