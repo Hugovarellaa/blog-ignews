@@ -1,6 +1,6 @@
 .headerContainer {
   height: 5rem;
-  border-bottom: 1px solid var(--gray-800);
+  border-bottom: 1px solid var(--gray-700);
 }
 
 .headerContent {
@@ -47,5 +47,8 @@
         border-radius: 3px 3px 0 0;
       }
     }
+  }
+  button {
+    margin-left: auto;
   }
 }
