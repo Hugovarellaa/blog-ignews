@@ -1,3 +1,12 @@
+import Head from "next/head";
+
 export default function Home() {
-  return <h1>testando</h1>;
+  return (
+    <>
+      <Head>
+        <title>Home | Ignews</title>
+      </Head>
+      <main>home</main>
+    </>
+  );
 }
