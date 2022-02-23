@@ -1,3 +1,4 @@
+import { Console } from "console";
 import { NextApiRequest, NextApiResponse } from "next";
 import { Readable } from "stream";
 import Stripe from "stripe";
@@ -19,19 +20,16 @@ export const config = {
   },
 };
 
-const eventRelevant = new Set([
-  "checkout.session.completed",
-  "customer.subscription.updated",
-  "customer.subscription.deleted",
-]);
+const relevantEvents = new Set(["checkout.session.completed"]);
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "POST") {
-    const buf = await buffer(req);
     const webhook = process.env.STRIPE_WEBHOOK;
+    const buf = await buffer(req);
     const secret = req.headers["stripe-signature"];
 
     let event: Stripe.Event;
+
     try {
       event = stripe.webhooks.constructEvent(buf, secret, webhook);
     } catch (err) {
@@ -39,27 +37,27 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     }
 
     const { type } = event;
-    if (eventRelevant.has(type)) {
+
+    if (relevantEvents.has(type)) {
       try {
         switch (type) {
-          case "customer.subscription.updated":
-          case "customer.subscription.updated":
-            break;
           case "checkout.session.completed":
             const checkoutSession = event.data
               .object as Stripe.Checkout.Session;
+
             await saveSubscription(
               checkoutSession.subscription.toString(),
               checkoutSession.customer.toString()
             );
             break;
           default:
-            throw new Error("Unhadled event");
+            throw new Error("unhadled event");
         }
-      } catch (error) {
-        res.json({ error: `Webhook handler failure. - ${error.message}` });
+      } catch (err) {
+        res.json({ err: "Webhook handler failed." });
       }
     }
+
     res.json({ received: true });
   } else {
     res.setHeader("Allow", "POST");
