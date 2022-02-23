@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { Readable } from "stream";
 import Stripe from "stripe";
 import { stripe } from "../../services/stripe";
+import { saveSubscription } from "./_lib/managerSubscription";
 
 async function buffer(readable: Readable) {
   const chunks = [];
@@ -18,7 +19,11 @@ export const config = {
   },
 };
 
-const eventRelevant = new Set(["checkout.session.completed"]);
+const eventRelevant = new Set([
+  "checkout.session.completed",
+  "customer.subscription.updated",
+  "customer.subscription.deleted",
+]);
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "POST") {
@@ -35,7 +40,25 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     const { type } = event;
     if (eventRelevant.has(type)) {
-      console.log(event, type);
+      try {
+        switch (type) {
+          case "customer.subscription.updated":
+          case "customer.subscription.updated":
+            break;
+          case "checkout.session.completed":
+            const checkoutSession = event.data
+              .object as Stripe.Checkout.Session;
+            await saveSubscription(
+              checkoutSession.subscription.toString(),
+              checkoutSession.customer.toString()
+            );
+            break;
+          default:
+            throw new Error("Unhadled event");
+        }
+      } catch (error) {
+        res.json({ error: `Webhook handler failure. - ${error.message}` });
+      }
     }
     res.json({ received: true });
   } else {
