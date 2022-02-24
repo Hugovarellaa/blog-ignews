@@ -1,6 +1,5 @@
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { Header } from ".";
-import { ActiveLink } from "../ActiveLink";
 
 jest.mock("next/router", () => {
   return {
@@ -22,9 +21,9 @@ jest.mock("next-auth/react", () => {
 
 describe("Header components", () => {
   it("renders correctly", () => {
-    const { getByText } = render(<Header />);
+    render(<Header />);
 
-    expect(getByText("Home")).toBeInTheDocument();
-    expect(getByText("Posts")).toBeInTheDocument();
+    expect(screen.getByText("Home")).toBeInTheDocument();
+    expect(screen.getByText("Posts")).toBeInTheDocument();
   });
 });
