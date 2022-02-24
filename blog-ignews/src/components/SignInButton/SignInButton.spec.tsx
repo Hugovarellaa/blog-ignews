@@ -1,29 +1,28 @@
 import { render, screen } from "@testing-library/react";
 import { SignInButton } from "./index";
-import { mocked } from "jest-mock";
+
 import { useSession } from "next-auth/react";
 
 jest.mock("next-auth/react");
 
 describe("SignInButton components", () => {
-  it("renders correctly when is not authenticated", () => {
+  it("renders correctly when user is NOT authenticated", () => {
     const useSessionMocked = jest.mocked(useSession);
 
     useSessionMocked.mockReturnValueOnce({ data: null, status: "loading" });
 
     render(<SignInButton />);
 
-    expect(screen.getByText("Sign in with Github")).toBeInTheDocument();
+    expect(screen.getByText(/sign in with github/i)).toBeInTheDocument();
   });
-
   it("renders correctly when is authenticated", () => {
     const useSessionMocked = jest.mocked(useSession);
 
     useSessionMocked.mockReturnValueOnce({
       data: {
         user: {
-          name: "Jonh Doe",
-          email: "john.doe@example.com",
+          name: "Jhon Doe",
+          email: "jhondoe@example.com",
         },
         expires: "fake-expires",
       },
@@ -32,6 +31,6 @@ describe("SignInButton components", () => {
 
     render(<SignInButton />);
 
-    expect(screen.getByText(/Jonh doe/i)).toBeInTheDocument();
+    expect(screen.getByText(/jhon doe/i)).toBeInTheDocument();
   });
 });
