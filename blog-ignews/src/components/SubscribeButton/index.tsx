@@ -1,4 +1,5 @@
 import { signIn, useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 import { api } from "../../services/api";
 import { getStripeJs } from "../../services/stripe-js";
 import styles from "./styles.module.scss";
@@ -8,6 +9,7 @@ interface SubscribeButtonProps {
 }
 
 export function SubscribeButton({ priceId }: SubscribeButtonProps) {
+  const router = useRouter();
   const { data: session } = useSession();
 
   async function handleSubscribe() {
@@ -15,6 +17,12 @@ export function SubscribeButton({ priceId }: SubscribeButtonProps) {
       signIn("github");
       return;
     }
+
+    if (session.activeSubscription) {
+      router.push("/posts");
+      return;
+    }
+
     try {
       //logica para redireciona o usuario pro painel do stripe feito em pages/api/subscribe
       const response = await api.post("/subscribe");

@@ -29,7 +29,7 @@ export default NextAuth({
                   )
                 )
               ),
-              q.Match(q.Index("subscription_by_status"), "active"),
+              q.Match(q.Index("subscriptions_by_status"), "active"),
             ])
           )
         );
@@ -38,7 +38,7 @@ export default NextAuth({
           ...session,
           activeSubscription: userActiveSubscription,
         };
-      } catch (err) {
+      } catch {
         return {
           ...session,
           activeSubscription: null,
