@@ -12,7 +12,7 @@ type Post = {
   slug: string;
   title: string;
   excerpt: string;
-  updatedAt: string;
+  updateAt: string;
 };
 
 interface PostsProps {
@@ -31,7 +31,7 @@ export default function Posts({ posts }: PostsProps) {
           {posts.map((post) => (
             <Link href={`/posts/${post.slug}`} key={post.slug}>
               <a>
-                <time>{post.updatedAt}</time>
+                <time>{post.updateAt}</time>
                 <strong>{post.title}</strong>
                 <p>{post.excerpt}</p>
               </a>
@@ -46,7 +46,7 @@ export default function Posts({ posts }: PostsProps) {
 export const getStaticProps: GetStaticProps = async () => {
   const prismic = getPrismicClient();
 
-  const response = await prismic.query(
+  const response = await prismic.query<any>(
     [Prismic.predicates.at("document.type", "publication")],
     {
       fetch: ["publication.title", "publication.content"],
@@ -61,7 +61,7 @@ export const getStaticProps: GetStaticProps = async () => {
       excerpt:
         post.data.content.find((content) => content.type === "paragraph")
           ?.text ?? "",
-      updatedAt: new Date(post.last_publication_date).toLocaleDateString(
+      updateAt: new Date(post.last_publication_date).toLocaleDateString(
         "pt-BR",
         {
           day: "2-digit",
