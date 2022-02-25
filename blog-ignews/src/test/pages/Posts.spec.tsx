@@ -1,56 +1,80 @@
 import { render, screen } from "@testing-library/react";
-import Posts, { getStaticProps } from "../../pages/posts";
+import { getSession } from "next-auth/react";
+import Post, { getServerSideProps } from "../../pages/posts/[slug]";
 import { getPrismicClient } from "../../services/prismic";
 
-const posts = [
-  {
-    slug: "my-new-posts",
-    title: "My New Post",
-    excerpt: "Post excerpt",
-    updateAt: "10 de Abril ",
-  },
-];
+const post = {
+  slug: "my-new-posts",
+  title: "My New Post",
+  content: "<p>Post content</p>",
+  updateAt: "01 de Abril",
+};
 
+jest.mock("next-auth/react");
 jest.mock("../../services/prismic");
 
-describe("Posts page", () => {
+describe("Pots page", () => {
   it("renders correctly", () => {
-    render(<Posts posts={posts} />);
+    render(<Post post={post} />);
 
-    expect(screen.getByText("My New Post")).toBeInTheDocument();
+    expect(screen.getByText("My New Post"));
+    expect(screen.getByText("Post content"));
+  });
+
+  it("redirects user if no subscription is found", async () => {
+    //retornando que o usuario esta deslogado
+    const getSessionMocked = jest.mocked(getSession);
+    getSessionMocked.mockResolvedValueOnce(null);
+
+    const response = await getServerSideProps({
+      params: { slug: "my-new-posts" },
+    } as any);
+
+    expect(response).toEqual(
+      expect.objectContaining({
+        redirect: expect.objectContaining({
+          destination: "/",
+          permanent: false,
+        }),
+      })
+    );
   });
 
   it("loads initial data", async () => {
-    const getPrismicClientMocked = jest.mocked(getPrismicClient);
+    //retornando que o usuario esta autenticado
+    const getSessionMocked = jest.mocked(getSession);
 
+    getSessionMocked.mockResolvedValueOnce({
+      activeSubscription: "fake-active-subscription",
+    } as any);
+
+    //mocando o prismicio
+    const getPrismicClientMocked = jest.mocked(getPrismicClient);
     getPrismicClientMocked.mockReturnValueOnce({
-      query: jest.fn().mockResolvedValueOnce({
-        results: [
-          {
-            uid: "my-new-posts",
-            data: {
-              title: [{ type: "heading", text: "My New Post" }],
-              content: [{ type: "paragraph", text: "Post excerpt" }],
-            },
-            last_publication_date: "04-01-2022",
-          },
-        ],
+      getByUID: jest.fn().mockResolvedValueOnce({
+        data: {
+          title: [{ type: "heading", text: "My New Post" }],
+          content: [{ type: "paragraph", text: "Post content" }],
+        },
+        last_publication_date: "04-01-2022",
       }),
     } as any);
 
-    const response = await getStaticProps({});
+    const response = await getServerSideProps({
+      params: {
+        slug: "my-new-posts",
+      },
+    } as any);
 
     expect(response).toEqual(
       expect.objectContaining({
         props: {
-          posts: [
-            {
-              slug: "my-new-posts",
-              title: "My New Post",
-              excerpt: "Post excerpt",
-              updateAt: "01 de abril de 2022",
-            },
-          ],
+          post: {
+            slug: "my-new-posts",
+            title: "My New Post",
+            content: "<p>Post content</p>",
+            updateAt: "01 de abril de 2022",
+          },
         },
       })
     );
