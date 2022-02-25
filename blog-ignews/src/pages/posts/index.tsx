@@ -1,16 +1,18 @@
 import { GetStaticProps } from "next";
 import Head from "next/head";
-import { getPrismicClient } from "../../services/prismic";
-import styles from "./styles.module.scss";
 import Prismic from "@prismicio/client";
 import { RichText } from "prismic-dom";
 import Link from "next/link";
+
+import { getPrismicClient } from "../../services/prismic";
+
+import styles from "./styles.module.scss";
 
 type Post = {
   slug: string;
   title: string;
   excerpt: string;
-  updateAt: string;
+  updatedAt: string;
 };
 
 interface PostsProps {
@@ -25,11 +27,11 @@ export default function Posts({ posts }: PostsProps) {
       </Head>
 
       <main className={styles.container}>
-        <div className={styles.post}>
+        <div className={styles.posts}>
           {posts.map((post) => (
             <Link href={`/posts/${post.slug}`} key={post.slug}>
               <a>
-                <time>{post.updateAt}</time>
+                <time>{post.updatedAt}</time>
                 <strong>{post.title}</strong>
                 <p>{post.excerpt}</p>
               </a>
@@ -41,19 +43,13 @@ export default function Posts({ posts }: PostsProps) {
   );
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  return {
-    paths: [],
-    fallback: "blocking",
-  };
-};
-
 export const getStaticProps: GetStaticProps = async () => {
   const prismic = getPrismicClient();
-  const response = await prismic.query<any>(
-    [Prismic.predicates.at("document.type", "teste")],
+
+  const response = await prismic.query(
+    [Prismic.predicates.at("document.type", "publication")],
     {
-      fetch: ["teste.title", "teste.content"],
+      fetch: ["publication.title", "publication.content"],
       pageSize: 100,
     }
   );
@@ -65,8 +61,8 @@ export const getStaticProps: GetStaticProps = async () => {
       excerpt:
         post.data.content.find((content) => content.type === "paragraph")
           ?.text ?? "",
-      updateAt: new Date(post.last_publication_date).toLocaleDateString(
-        "pt-br",
+      updatedAt: new Date(post.last_publication_date).toLocaleDateString(
+        "pt-BR",
         {
           day: "2-digit",
           month: "long",
@@ -77,6 +73,8 @@ export const getStaticProps: GetStaticProps = async () => {
   });
 
   return {
-    props: { posts },
+    props: {
+      posts,
+    },
   };
 };
