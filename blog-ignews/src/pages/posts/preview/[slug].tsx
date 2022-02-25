@@ -43,7 +43,7 @@ export default function PostPreview({ post }: PostPreviewProps) {
             dangerouslySetInnerHTML={{ __html: post.content }}
           />
           <div className={styles.continueReading}>
-            Wanna continue reading?{" "}
+            Wanna continue reading?
             <Link href="/">
               <a>Subscribe now 🤗</a>
             </Link>
