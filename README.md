@@ -69,11 +69,11 @@ $ yarn dev
 ## Imagens
 
 <h1 align="center">
-    <img alt = "Web Home" src = "./Blog-ignews/public/assets/image-01.png" width = "500px" />
-    <img alt = "Web Preview" src = "./Blog-ignews/public/assets/image-02.png" width = "500px" />
-    <img alt = "Web Posts" src = "./Blog-ignews/public/assets/image-03.png" width = "500px" />
-    <img alt = "Stripe" src = "./Blog-ignews/public/assets/image-04.png" width = "500px" />
-    <img alt = "Stripe" src = "./Blog-ignews/public/assets/image-09.png" width = "500px" />
+    <img alt = "Web Home" src = "./blog-ignews/public/assets/image-01.png" width = "500px" />
+    <img alt = "Web Preview" src = "./blog-ignews/public/assets/image-02.png" width = "500px" />
+    <img alt = "Web Posts" src = "./blog-ignews/public/assets/image-03.png" width = "500px" />
+    <img alt = "Stripe" src = "./blog-ignews/public/assets/image-04.png" width = "500px" />
+    <img alt = "Stripe" src = "./blog-ignews/public/assets/image-09.png" width = "500px" />
 </h1>
 
 <br>
@@ -84,8 +84,8 @@ $ yarn dev
   - Deve ser criado 2 collections e 5 Indexes conforme as images abaixo
 </p>
 <h1 align="center">
-    <img alt = "Web Home" src = "./Blog-ignews/public/assets/image-05.png" width = "500px" />
-    <img alt = "Web Home" src = "./Blog-ignews/public/assets/image-06.png" width = "500px" />
+    <img alt = "Web Home" src = "./blog-ignews/public/assets/image-05.png" width = "500px" />
+    <img alt = "Web Home" src = "./blog-ignews/public/assets/image-06.png" width = "500px" />
 </h1>
 
 <br>
@@ -98,6 +98,6 @@ $ yarn dev
   - No stripe deve ser criado um produto conforme a image abaixo, que sera   acessado com as chaves.
 </p>
 <h1 align="center">
-    <img alt = "Web Home" src = "./Blog-ignews/public/assets/image-07.png" width = "500px" />
-    <img alt = "Web Home" src = "./Blog-ignews/public/assets/image-08.png" width = "500px" height="270px"/>
+    <img alt = "Web Home" src = "./blog-ignews/public/assets/image-07.png" width = "500px" />
+    <img alt = "Web Home" src = "./blog-ignews/public/assets/image-08.png" width = "500px" height="270px"/>
 </h1>
