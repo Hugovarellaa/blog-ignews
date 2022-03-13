@@ -17,7 +17,7 @@ interface PostsProps {
   posts: Post[];
 }
 
-export default function Post({ posts }: PostsProps) {
+export default function Posts({ posts }: PostsProps) {
   return (
     <>
       <Head>
@@ -69,5 +69,6 @@ export const getStaticProps: GetStaticProps = async () => {
 
   return {
     props: { posts },
+    revalidate: 60 * 60 * 24 * 30 * 12, //30 days
   };
 };
