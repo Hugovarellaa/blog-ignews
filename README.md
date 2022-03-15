@@ -1,103 +1,75 @@
-<h1 align="center">
+# Ignews 💛🚀
 
-<img src="https://raw.githubusercontent.com/khalleb/ignews/main/public/images/avatar.svg" alt="rocketshoes" width="100px"/>
+<p align="center">Feito com 💙 por Hugo Alves Varella</p>
 
-</h1>
+&nbsp;
 
-<p align="center">
-  IGNEWS - Portal de notícias 📰🚀
-  <br>
-  <br>
+### 🔗 Link para o projeto online
 
-## Sobre
+[Ignews](https://blog-ignews-hugovarellaa.vercel.app/)
 
-O projeto ig.news é um blog onde os usuários podem ter acesso ao conteúdo de cada postagem de acordo com o status de sua assinatura.<br>
-O blog possui um sistema de compra integrado com o STRIPE, e após o usuário realizar o pagamento, sua inscrição estará ativa e pronta para visualizar o conteúdo completo
-de todo o blog. Caso o usuário não deseje optar pela assinatura, ele terá acesso limitado ao conteúdo das postagens. E todos os dados necessários para se fazer verificações
-de assinaturas ou dados dos usuários, estão salvos no banco de dados FaunaDB.
-<br>
-<br>
-Essa é uma aplicação Serverless, ou seja, todo o processo que dependeria de um backend foi integrado dentro do front e seguindo o padrão da JAMStack.
-<br>
-As postagens são feitas pelo painel do Prismic CMS e integradas diretamente pelo front.
+&nbsp;
 
-<br>
+![mock1](https://user-images.githubusercontent.com/71772559/113495090-3e529600-94c5-11eb-953c-53ab4f71fc15.png)
 
----
+## 📚 Informações sobre o projeto
 
-## Rocket Tecnologias
+- Esse projeto foi desenvolvido durante um dos capitulos do Ignite da Rocketseat! A ideia era desenvolver do um blog pago onde o usuário loga usando o GitHub e paga sua inscrição usando o Stripe. Usuários que não possuem a inscrição, só conseguem ver alguns parágrafos iniciais do post, orefecendo a inscrição logo abaixo.
 
-As seguintes tecnologias foram utilizadas no projeto:
+&nbsp;
 
+## 💻 O que tem no projeto?
+
+- Integração com o Prismic CMS, para trabalhar com toda a parte do sistema do blog.
+- Integração com o Stripe para a parte dos pagamentos das inscrições.
+- Integração com o NextAuth para a parte do login com o Github.
+- Sistema de verificação de assinatura, o conteúdo exibido varia entre usuários com/sem assinatura paga.
+- Dados são salvos no bando do FaunDb.
+- Uso do sistema estático do Next.js, onde os posts são mantidos no cache para um melhor carregamento.
+
+&nbsp;
+
+![mock2](https://user-images.githubusercontent.com/71772559/113495232-84f4c000-94c6-11eb-81fe-4dfb37d29e44.png)
+
+&nbsp;
+
+## 🛠️ Tecnologias/Ferramentas ultilizadas
+
+- [React](https://pt-br.reactjs.org/E)
 - [Next.js](https://nextjs.org/)
+- [NextAuth](https://next-auth.js.org/)
 - [Prismic CMS](https://prismic.io/)
-- [Stripe](https://stripe.com/)
-- [FaunaDB](https://fauna.com/)
+- [Stripe](https://stripe.com/en-br)
+- [Fauna](https://fauna.com/)
 
-<br>
-<br>
+&nbsp;
 
----
+## 🔖 Layout
 
-## Requerimentos
+Você pode visualizar o layout do projeto através [desse link](https://www.figma.com/file/1ObvavGTVFuRrMWyYmYMtO/ig.news-Copy?fuid=975921817161406319). É necessário ter conta no [Figma](http://figma.com/) para acessá-lo.
 
-- [Node](https://nodejs.org/en/)
-- [Yarn](https://yarnpkg.com/lang/en/)
 
----
+&nbsp;
 
-## Como iniciar
+## ⚙️ Instalação
 
-```bash
-# Clone this project
-$ git clone https://github.com/Hugovarellaa/ignews
-
-# Access
-$ cd ignews
-
-# Install dependencies
-$ yarn
-
-# Run the project
-$ yarn dev
-
-# The server will initialize in the <http://localhost:3000>
+```
+# Abra um terminal e copie este repositório com o comando
+$ git clone https://github.com/Hugovarellaa/Blog-ignews
 ```
 
----
+```
+# Acesse a pasta da aplicação
+$ cd Blog-ignews
 
-## Imagens
+# Crie um arquivo .env.local e coloque as variaveis
+# de ambiente baseado no arquivo .env.example que
+# se encontra na pasta moveit
 
-<h1 align="center">
-    <img alt = "Web Home" src = "./blog-ignews/public/assets/image-01.png" width = "500px" />
-    <img alt = "Web Preview" src = "./blog-ignews/public/assets/image-02.png" width = "500px" />
-    <img alt = "Web Posts" src = "./blog-ignews/public/assets/image-03.png" width = "500px" />
-    <img alt = "Stripe" src = "./blog-ignews/public/assets/image-04.png" width = "500px" />
-    <img alt = "Stripe" src = "./blog-ignews/public/assets/image-09.png" width = "500px" />
-</h1>
+# Instale as dependências
+$ yarn
 
-<br>
+# Inicie a aplicação
+$ yarn dev
 
-## FaunaDB
-
-<p>
-  - Deve ser criado 2 collections e 5 Indexes conforme as images abaixo
-</p>
-<h1 align="center">
-    <img alt = "Web Home" src = "./blog-ignews/public/assets/image-05.png" width = "500px" />
-    <img alt = "Web Home" src = "./blog-ignews/public/assets/image-06.png" width = "500px" />
-</h1>
-
-<br>
-
-## Stripe
-
-<br>
-
-<p>
-  - No stripe deve ser criado um produto conforme a image abaixo, que sera   acessado com as chaves.
-</p>
-<h1 align="center">
-    <img alt = "Web Home" src = "./blog-ignews/public/assets/image-07.png" width = "500px" />
-    <img alt = "Web Home" src = "./blog-ignews/public/assets/image-08.png" width = "500px" height="270px"/>
-</h1>
+```
