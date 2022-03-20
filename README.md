@@ -63,8 +63,7 @@ $ git clone https://github.com/Hugovarellaa/Blog-ignews
 $ cd Blog-ignews
 
 # Crie um arquivo .env.local e coloque as variaveis
-# de ambiente baseado no arquivo .env.example que
-# se encontra na pasta moveit
+# de ambiente baseado no arquivo .env.example
 
 # Instale as dependências
 $ yarn
