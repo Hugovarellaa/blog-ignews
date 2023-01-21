@@ -6,7 +6,7 @@
 
 ### 🔗 Link para o projeto online
 
-[Ignews](https://blog-ignews-hugovarellaa.vercel.app/)
+[Ignews]()
 
 &nbsp;
 
