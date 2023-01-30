@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint src --ext .ts,.tsx --fix"
+    "lint": "eslint src --ext .ts,.tsx --fix",
+    "stripe": "stripe-cli/stripe listen --forward-to localhost:3000/api/webhooks"
   },
   "dependencies": {
     "@next/font": "13.1.6",
