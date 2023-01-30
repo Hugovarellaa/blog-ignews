@@ -1,4 +1,5 @@
 import { api } from '@/src/services/axios'
+import { getStripeJs } from '@/src/services/stripe-js'
 import { signIn, useSession } from 'next-auth/react'
 import styles from './styles.module.scss'
 
@@ -10,7 +11,10 @@ export function SubscribeButton() {
       await signIn('github')
     }
     try {
-      await api.post('subscribe')
+      const response = await api.post('subscribe')
+      const { sessionId } = response.data
+      const stripe = await getStripeJs()
+      await stripe.redirectToCheckout({ sessionId })
     } catch (error) {
       console.log(error.message)
     }
