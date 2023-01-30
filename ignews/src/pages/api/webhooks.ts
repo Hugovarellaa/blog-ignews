@@ -51,10 +51,17 @@ export default async (request: NextApiRequest, response: NextApiResponse) => {
             await saveSubscriptions(
               checkoutSession.subscription.toString(),
               checkoutSession.customer.toString(),
+              true,
             )
             break
           case 'customer.subscription.updated':
           case 'customer.subscription.deleted':
+            const subscription = event.data.object as Stripe.Subscription
+            await saveSubscriptions(
+              subscription.id,
+              subscription.customer.toString(),
+              false,
+            )
             break
           default:
             throw new Error('Unhandled event')
