@@ -16,7 +16,7 @@ export function Header() {
           <a href="#" className={styles.active}>
             Home
           </a>
-          <a href="#">Post</a>
+          <a href="#">Posts</a>
         </nav>
 
         <SignInButton />
