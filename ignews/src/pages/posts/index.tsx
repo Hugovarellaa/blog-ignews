@@ -1,3 +1,4 @@
+import { ActiveLink } from '@/src/components/ActiveLink'
 import { getPrismicClient } from '@/src/services/prismic'
 import Prismic from '@prismicio/client'
 import { GetStaticProps } from 'next'
@@ -26,11 +27,13 @@ export default function Posts({ posts }: PostsProps) {
       <main className={styles.postsContainer}>
         <div className={styles.posts}>
           {posts.map((post) => (
-            <a href="#" key={post.slug}>
-              <time>{post.updateAt}</time>
-              <strong>{post.title}</strong>
-              <p>{post.excerpt}</p>
-            </a>
+            <ActiveLink href={`/posts/${post.slug}`} key={post.slug}>
+              <a>
+                <time>{post.updateAt}</time>
+                <strong>{post.title}</strong>
+                <p>{post.excerpt}</p>
+              </a>
+            </ActiveLink>
           ))}
         </div>
       </main>
